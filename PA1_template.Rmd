@@ -4,13 +4,35 @@ output:
   html_document:
     keep_md: true
 ---
+```{r setoptions, echo=FALSE}
+options(scipen = 1, digits = 2)
+```
 
 
 ## Loading and preprocessing the data
+The data was taken from the forked repository.
+```{r}
+unzip("activity.zip")
+activity <- read.csv("activity.csv", as.is=TRUE)
+activity$date <- as.Date(activity$date)
+```
 
 
 
 ## What is mean total number of steps taken per day?
+```{r}
+totalStepsPerDay <- aggregate(activity$steps ~ activity$date, FUN=sum)
+colnames(totalStepsPerDay) = c("Date", "Steps")
+xlabel <- "Total number of steps taken each day"
+hist(totalStepsPerDay$Steps, main = NA, xlab = xlabel)
+
+meanTotalStepsPerDay <- mean(totalStepsPerDay$Steps)
+medianTotalStepsPerDay <- median(totalStepsPerDay$Steps)
+```
+The mean of total number of steps taken per day is: `r meanTotalStepsPerDay`
+
+The median of total number of steps taken per day is: `r medianTotalStepsPerDay`
+
 
 
 

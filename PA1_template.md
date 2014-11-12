@@ -37,6 +37,14 @@ The median of total number of steps taken per day is: 10765
 
 ## What is the average daily activity pattern?
 
+```r
+# average number of steps taken per interval, averaged across all days
+avgStepsPerInterval <- aggregate(activity$steps ~ activity$interval, FUN=mean)
+colnames(avgStepsPerInterval) = c("interval", "steps")
+plot(avgStepsPerInterval$interval, avgStepsPerInterval$steps, type = "l")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 
 
 ## Imputing missing values

@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 
@@ -22,7 +27,7 @@ xlabel <- "Total number of steps taken each day"
 hist(totalStepsPerDay$Steps, main = NA, xlab = xlabel)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 ```r
 meanTotalStepsPerDay <- mean(totalStepsPerDay$Steps)
@@ -44,7 +49,7 @@ colnames(avgStepsPerInterval) = c("interval", "steps")
 plot(avgStepsPerInterval$interval, avgStepsPerInterval$steps, type = "l")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 
 ## Imputing missing values

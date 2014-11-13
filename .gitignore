@@ -3,6 +3,7 @@
 ### R ###
 # History files
 .Rhistory
+.RData
 
 # Example code in package build process
 *-Ex.R
@@ -12,3 +13,6 @@
 
 # Mac Stuff
 .DS_Store
+
+# Other Stuff
+*.csv

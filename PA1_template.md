@@ -51,6 +51,13 @@ plot(avgStepsPerInterval$interval, avgStepsPerInterval$steps, type = "l")
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
+### Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
+```r
+maxStepsLocation <- which.max(avgStepsPerInterval$steps)
+maxInterval <- avgStepsPerInterval$interval[maxStepsLocation]
+```
+The interval is 835
 
 ## Imputing missing values
 

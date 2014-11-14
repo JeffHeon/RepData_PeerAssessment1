@@ -29,12 +29,9 @@ hist(totalStepsPerDay$Steps, main = NA, xlab = xlabel)
 meanTotalStepsPerDay <- mean(totalStepsPerDay$Steps)
 medianTotalStepsPerDay <- median(totalStepsPerDay$Steps)
 ```
-The mean of total number of steps taken per day is: `r meanTotalStepsPerDay`
+The mean of total number of steps taken per day is: `r meanTotalStepsPerDay`.
 
-The median of total number of steps taken per day is: `r medianTotalStepsPerDay`
-
-
-
+The median of total number of steps taken per day is: `r medianTotalStepsPerDay`.
 
 ## What is the average daily activity pattern?
 ```{r}
@@ -51,8 +48,20 @@ maxInterval <- avgStepsPerInterval$interval[maxStepsLocation]
 ```
 The 5-minute interval is `r maxInterval`.
 
-## Imputing missing values
 
+
+## Imputing missing values
+```{r}
+totalNumberOfRowsWithNAs <- length(activity$steps[is.na(activity$steps)])
+```
+Total number of missing values is `r totalNumberOfRowsWithNAs`.
+
+**Missing values strategy**
+We'll fill the missing values with the mean of the given internal for the same weekday.
+```{r}
+# Use factors?
+avgStepsPerIntervalPerWeekday <- aggregate(activity$steps ~ activity$interval + weekdays(activity$date), FUN=mean)
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?

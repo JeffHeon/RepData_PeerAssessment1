@@ -224,9 +224,9 @@ hist(totalStepsPerDay$Steps, main = NA, xlab = xlabel)
 medianTotalStepsPerDay &lt;- median(totalStepsPerDay$Steps)
 </code></pre>
 
-<p>The mean of total number of steps taken per day is: 10766.19</p>
+<p>The mean of total number of steps taken per day is: 10766.19.</p>
 
-<p>The median of total number of steps taken per day is: 10765</p>
+<p>The median of total number of steps taken per day is: 10765.</p>
 
 <h2>What is the average daily activity pattern?</h2>
 
@@ -244,9 +244,14 @@ plot(avgStepsPerInterval$interval, avgStepsPerInterval$steps, type = &quot;l&quo
 maxInterval &lt;- avgStepsPerInterval$interval[maxStepsLocation]
 </code></pre>
 
-<p>The interval is 835</p>
+<p>The 5-minute interval is 835.</p>
 
 <h2>Imputing missing values</h2>
+
+<pre><code class="r">totalNumberOfRowsWithNAs &lt;- length(activity$steps[is.na(activity$steps)])
+</code></pre>
+
+<p>Total number of missing values is 2304.</p>
 
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 

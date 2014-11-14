@@ -33,12 +33,9 @@ hist(totalStepsPerDay$Steps, main = NA, xlab = xlabel)
 meanTotalStepsPerDay <- mean(totalStepsPerDay$Steps)
 medianTotalStepsPerDay <- median(totalStepsPerDay$Steps)
 ```
-The mean of total number of steps taken per day is: 10766.19
+The mean of total number of steps taken per day is: 10766.19.
 
-The median of total number of steps taken per day is: 10765
-
-
-
+The median of total number of steps taken per day is: 10765.
 
 ## What is the average daily activity pattern?
 
@@ -57,9 +54,17 @@ plot(avgStepsPerInterval$interval, avgStepsPerInterval$steps, type = "l")
 maxStepsLocation <- which.max(avgStepsPerInterval$steps)
 maxInterval <- avgStepsPerInterval$interval[maxStepsLocation]
 ```
-The interval is 835
+The 5-minute interval is 835.
+
+
 
 ## Imputing missing values
+
+```r
+totalNumberOfRowsWithNAs <- length(activity$steps[is.na(activity$steps)])
+```
+Total number of missing values is 2304.
+
 
 
 

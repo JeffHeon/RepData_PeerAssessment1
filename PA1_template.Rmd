@@ -38,7 +38,8 @@ The median of total number of steps taken per day is: `r medianTotalStepsPerDay`
 # average number of steps taken per interval, averaged across all days
 avgStepsPerInterval <- aggregate(activity$steps ~ activity$interval, FUN=mean)
 colnames(avgStepsPerInterval) = c("interval", "steps")
-plot(avgStepsPerInterval$interval, avgStepsPerInterval$steps, type = "l")
+plot(avgStepsPerInterval$interval, avgStepsPerInterval$steps, type = "l",
+     xlab="Interval", ylab="Number of steps")
 ```
 
 ### Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -59,7 +60,8 @@ Total number of missing values is `r totalNumberOfRowsWithNAs`.
 **Missing values strategy**
 We'll fill the missing values with the mean of the given internal for the same weekday.
 ```{r}
-avgStepsPerIntervalPerWeekday <- aggregate(activity$steps ~ activity$interval + weekdays(activity$date), FUN=mean)
+avgStepsPerIntervalPerWeekday <- aggregate(activity$steps ~ activity$interval + weekdays(activity$date),
+                                           FUN=mean)
 colnames(avgStepsPerIntervalPerWeekday) = c("interval", "weekday", "steps")
 fabricateValue <- function(interval, weekday) {
     avgStepsPerIntervalPerWeekday$steps[
@@ -101,3 +103,21 @@ Adding the missing values gave us different mean and median from the first part 
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+isWeekend <- function(date) {
+    weekday <- weekdays(date)
+    return (weekday == "Saturday" | weekday == "Sunday")
+  }
+
+activityFilled$dayType <- ifelse(isWeekend(activityFilled$date), "Weekend", "Weekday")
+
+avgStepsPerInterval <- aggregate(activityFilled$steps ~ activityFilled$interval +   activityFilled$dayType,
+  FUN=mean)
+
+colnames(avgStepsPerInterval) = c("interval", "dayType","steps")
+avgStepsPerInterval$dayType <- factor(avgStepsPerInterval$dayType)
+
+library(lattice)
+xyplot(steps ~ interval | dayType, data = avgStepsPerInterval, layout=c(1,2),
+       type="l", xlab="Interval", ylab="Number of steps")
+```

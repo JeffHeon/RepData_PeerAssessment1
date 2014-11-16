@@ -65,7 +65,55 @@ totalNumberOfRowsWithNAs <- length(activity$steps[is.na(activity$steps)])
 ```
 Total number of missing values is 2304.
 
+**Missing values strategy**
+We'll fill the missing values with the mean of the given internal for the same weekday.
 
+```r
+avgStepsPerIntervalPerWeekday <- aggregate(activity$steps ~ activity$interval + weekdays(activity$date), FUN=mean)
+colnames(avgStepsPerIntervalPerWeekday) = c("interval", "weekday", "steps")
+fabricateValue <- function(interval, weekday) {
+    avgStepsPerIntervalPerWeekday$steps[
+      avgStepsPerIntervalPerWeekday$interval == interval &
+      avgStepsPerIntervalPerWeekday$weekday == weekday]
+  }
+```
+
+Create a new dataset without missing values.
+
+```r
+activityFilled <- data.frame(activity$steps, activity$date, activity$interval)
+colnames(activityFilled) = c("steps", "date", "interval")
+
+naStepsIndices <- which(is.na(activityFilled$steps))
+
+for (i in naStepsIndices) {
+  interval <- activityFilled$interval[i]
+  weekday <- weekdays(activityFilled$date[i])
+  activityFilled$steps[i] <- fabricateValue(interval, weekday)
+}
+```
+
+## Prepare and display histogram for new dataset.
+
+
+```r
+totalStepsPerDay <- aggregate(activityFilled$steps ~ activityFilled$date, FUN=sum)
+colnames(totalStepsPerDay) = c("Date", "Steps")
+xlabel <- "Total number of steps taken each day"
+hist(totalStepsPerDay$Steps, main = NA, xlab = xlabel)
+```
+
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
+
+```r
+meanTotalStepsPerDay <- mean(totalStepsPerDay$Steps)
+medianTotalStepsPerDay <- median(totalStepsPerDay$Steps)
+```
+The mean of total number of steps taken per day is: 10821.21.
+
+The median of total number of steps taken per day is: 11015.
+
+Adding the missing values gave us different meand and median from the first part of the assignment. Adding missing values caused the total the estimates on the total daily nuber of steps to go up.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
